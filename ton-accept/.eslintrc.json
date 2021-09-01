@@ -1,0 +1,79 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "airbnb",
+    "plugin:@typescript-eslint/recommended",
+    "google",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "plugins": ["@typescript-eslint", "react", "prettier"],
+  "rules": {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "no-unused-vars": "off",
+    "react/require-default-props": "off",
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/prefer-interface": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "import/prefer-default-export": "off",
+    "operator-linebreak": "off", // prettier
+    "indent": "off", // prettier
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "@typescript-eslint/explicit-member-accessibility": 0,
+    "max-len": ["error", { "code": 120 }],
+    "react/no-did-update-set-state": "error",
+    "prefer-const": "warn",
+    "react/jsx-one-expression-per-line": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "lines-between-class-members": "off",
+    "react/no-array-index-key": "warn",
+    "@typescript-eslint/camelcase": "off",
+    "jsx-a11y/label-has-for": [
+      2,
+      {
+        "components": ["Label"],
+        "required": {
+          "every": ["id"]
+        },
+        "allowChildren": false
+      }
+    ],
+    "func-names": ["error", "always", { "generators": "never" }],
+    "react/jsx-curly-newline": "off",
+    "react/state-in-constructor": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/static-property-placement": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 0 }],
+    "quote-props": ["error", "as-needed"],
+    "react/display-name": "off",
+    "camelcase": "off",
+    "require-jsdoc": "off",
+    "valid-jsdoc": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    }
+  }
+}

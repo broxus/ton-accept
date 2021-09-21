@@ -53,15 +53,29 @@ The site can trigger a widget pop-up window when it is necessary to accept a pay
 
             // Calling a payment
                 // The first option
-                    window.tonaccept.requestPayment(orderId, description, amount, [currency], [validUntilUtc], [onSuccess], [onFailure]);
+                    const orderId = 1;
+                    const description = 'description';
+                    const amount = 0.01;
+                    const currency = "USDC";
+                    const validUntilUtc = +(Date.now() + 1000*60*10);;
+                    const onSuccess = () => console.log('onSuccess');
+                    const onFailure = () => console.log('onFailure');
+                    window.tonaccept.requestPayment(
+                        orderId, description, amount, [currency], [validUntilUtc], [onSuccess], [onFailure]);
 
                 // or the second option
+                    const orderId = 1;
+                    const description = 'description';
                     const price = new Map();
                         price.set('TON', 100);
                         price.set('USDT', 40);
                         price.set('0:...', 60);
-
-                    window.tonaccept.requestMultiCurPayment(orderId, description, price, baseCurrency, [validUntilUtc], [onSuccess], [onFailure]);
+                    const baseCurrency = "USDC";
+                    const validUntilUtc = +(Date.now() + 1000*60*10);
+                    const onSuccess = () => console.log('onSuccess');
+                    const onFailure = () => console.log('onFailure');
+                    window.tonaccept.requestMultiCurPayment(
+                        orderId, description, price, baseCurrency, [validUntilUtc], [onSuccess], [onFailure]);
         }
 
             // Optional

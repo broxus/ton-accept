@@ -38,12 +38,10 @@ The site can trigger a widget pop-up window when it is necessary to accept a pay
     <script src="https://..." data-src="https://..."></script>
     <script>
         function payment() {
-
             // Set currencies
                 window.tonaccept.config.currencies = ['TON', '0:...'];
                 // or
                 window.tonaccept.config.currenciesRemote = 'https://...';
-
 
             // Add address
             // one address will be randomly selected (each time)
@@ -52,7 +50,6 @@ The site can trigger a widget pop-up window when it is necessary to accept a pay
                 window.tonaccept.addresses.push('0:...');
                 window.tonaccept.addresses.push('0:...');
                 window.tonaccept.addresses.push('0:...');
-
 
             // Calling a payment
                 // The first option
@@ -67,7 +64,7 @@ The site can trigger a widget pop-up window when it is necessary to accept a pay
                     window.tonaccept.requestMultiCurPayment(orderId, description, price, baseCurrency, [validUntilUtc], [onSuccess], [onFailure]);
         }
 
-            // optional
+            // Optional
                 window.tonaccept.config.storeIcon = 'https://...';
                 window.tonaccept.config.storeAddress = 'https://...';
                 window.tonaccept.config.storeName = 'My awesome store';
@@ -100,11 +97,11 @@ The widget stores a sorted array with the accepted currencies in the config.curr
 
 Through direct assignment
 
-    tonaccept.config.currencies = ['TON', 'USDC'];
+    tonaccept.config.currencies = ['TON', 'USDC', '0:...'];
 
 or by calling the *setCurrencies* method
 
-    tonaccept.config.setCurrencies(['TON', 'USDC']);
+    tonaccept.config.setCurrencies(['TON', 'USDC', '0:...']);
 
 or by specifying a REST method that will return a sorted list in the form of a simple sorted JSON array
 
@@ -158,6 +155,7 @@ Alternatively, if the product is denominated in several currencies, you can use 
     let price = new Map();
     price.set('TON', 100);
     price.set('USDC', 40);
+    price.set('0:...', 60);
 
     tonaccept.requestMultiCurPayment(orderId, description, price, baseCurrency, [validUntilUtc], [onSuccess], [onFailure]);
 

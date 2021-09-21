@@ -57,7 +57,7 @@ The site can trigger a widget pop-up window when it is necessary to accept a pay
                     const description = 'description';
                     const amount = 0.01;
                     const currency = "USDC";
-                    const validUntilUtc = +(Date.now() + 1000*60*10);;
+                    const validUntilUtc = Date.now() + 1000*60*10;
                     const onSuccess = () => console.log('onSuccess');
                     const onFailure = () => console.log('onFailure');
                     window.tonaccept.requestPayment(
@@ -71,7 +71,7 @@ The site can trigger a widget pop-up window when it is necessary to accept a pay
                         price.set('USDT', 40);
                         price.set('0:...', 60);
                     const baseCurrency = "USDC";
-                    const validUntilUtc = +(Date.now() + 1000*60*10);
+                    const validUntilUtc = Date.now() + 1000*60*10;
                     const onSuccess = () => console.log('onSuccess');
                     const onFailure = () => console.log('onFailure');
                     window.tonaccept.requestMultiCurPayment(

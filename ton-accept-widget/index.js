@@ -1,8 +1,10 @@
 (function () {
+    const script = document.currentScript;
+
     const addIframe = () => {
         const iframe = document.createElement('iframe');
 
-        iframe.src = 'https://wintexpro.github.io/ton-accept/'; // todo
+        iframe.src = script.dataset.src;
 
         iframe.style.position = 'fixed';
         iframe.style.top = '0';
@@ -16,8 +18,6 @@
     };
 
     let iframe = null;
-
-    const script = document.currentScript;
 
     addEventListener('message', (e) => {
         if (e.data.command === 'success') {

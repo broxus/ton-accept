@@ -4,15 +4,13 @@ This is a payment widget that allows you to enable payment via [TON Crystal Exte
 It is added to any site through the connection of the library and the simplest in-page configuration.
 The site can trigger a widget pop-up window when it is necessary to accept a payment from a client.
 
-<br />
-<br />
-<br />
 
 # Contents
 
 - [Ton accept](#ton-accept)
 - [Contents](#contents)
-- [Getting Started](#getting-started)
+- [Getting started](#getting-started)
+- [Setup example](#setup-example)
 - [Supported currencies](#supported-currencies)
 - [Configuration](#сonfiguration)
     - [The accepted currencies are indicated in three ways:](#the-accepted-currencies-are-indicated-in-three-ways)
@@ -22,11 +20,8 @@ The site can trigger a widget pop-up window when it is necessary to accept a pay
     - [Conversion via TON Swap](#conversion-via-ton-swap)
     - [Multi-currency prices](#multi-currency-prices)
 
-<br />
-<br />
-<br />
 
-# Getting Started
+# Getting started
 
 <!-- - Install [the widget](https://chrome.google.com/webstore/detail/ton-crystal-wallet/cgeeodpfagjceefieflmdfphplkenlfk) -->
 - Set the [widget code](#) on your site. The library of a particular version is connected from the official Broxus repository or downloaded by the merchant to their servers independently:
@@ -35,10 +30,56 @@ The site can trigger a widget pop-up window when it is necessary to accept a pay
 - Add a button that calls the widget to the site.
 - That is all. You can accept payments.
 
+# Setup example
 
-<br />
-<br />
-<br />
+
+```html
+<body>
+    <script src="./index.js"></script>
+    <script>
+        function payment() {
+
+            // Set currencies
+                window.tonaccept.config.currencies = ['TON', '0:...'];
+                // or
+                window.tonaccept.config.currenciesRemote = 'https://...';
+
+
+            // Add address
+            // one address will be randomly selected (each time)
+                window.tonaccept.addresses.push('0:...');
+                window.tonaccept.addresses.push('0:...');
+                window.tonaccept.addresses.push('0:...');
+                window.tonaccept.addresses.push('0:...');
+                window.tonaccept.addresses.push('0:...');
+
+
+            // Calling a payment
+                // The first option
+                    window.tonaccept.requestPayment(orderId, description, amount, [currency], [validUntilUtc], [onSuccess], [onFailure]);
+
+                // or the second option
+                    const price = new Map();
+                        price.set('TON', 100);
+                        price.set('USDT', 40);
+                        price.set('0:...', 60);
+
+                    window.tonaccept.requestMultiCurPayment(orderId, description, price, baseCurrency, [validUntilUtc], [onSuccess], [onFailure]);
+        }
+
+            // optional
+                window.tonaccept.config.storeIcon = 'https://...';
+                window.tonaccept.config.storeAddress = 'https://...';
+                window.tonaccept.config.storeName = 'My awesome store';
+
+    </script>
+    <main>
+        <button onclick="payment()">payment</button>
+    </main>
+</body>
+```
+
+
 
 # Supported currencies
 
@@ -48,16 +89,12 @@ In the first iteration, coins supported by the TON Crystal wallet are added:
 
 The merchant specifies the specific list of accepted currencies independently in the configuration.
 
-<br />
-<br />
-<br />
 
 # Configuration
 
 The widget stores a sorted array with the accepted currencies in the config.currencies parameter . In this case, you can specify either as symbolic names of currencies (from [the official list of currencies](https://github.com/broxus/ton-assets/blob/master/manifest.json)), or by specifying the address of the root contract of the token.
 
 
-<br />
 
 ## The accepted currencies are indicated in three ways:
 
@@ -74,7 +111,6 @@ or by specifying a REST method that will return a sorted list in the form of a s
     tonaccept.config.currenciesRemote = 'https://localhost/currencies';
 
 
-<br />
 
 ## Store metadata
 
@@ -88,7 +124,6 @@ The merchant can set the name and icon of his store:
 
 This data will be displayed on the widget.
 
-<br />
 
 ## Addresses for payment
 
@@ -99,13 +134,9 @@ The merchant can specify one or more addresses for accepting payments:
 If you specify several addresses, the specific one at the time of payment will be selected randomly.
 
 
-<br />
-<br />
-<br />
 
 # Calling a payment
 
-<br />
 
 ## Conversion via [TON Swap](https://tonswap.io/)
 
@@ -119,7 +150,6 @@ Upon successful completion of the payment, the callback specified in onSuccess i
 or the payment is unsuccessful, onFailure is called .
 
 
-<br />
 
 ## Multi-currency prices
 

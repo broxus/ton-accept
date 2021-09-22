@@ -25,7 +25,7 @@ The site can trigger a widget pop-up window when it is necessary to accept a pay
 # Getting started
 
 <!-- - Install [the widget](https://chrome.google.com/webstore/detail/ton-crystal-wallet/cgeeodpfagjceefieflmdfphplkenlfk) -->
-- Set the [widget code](##standalone-widget-host-or-how-to-host-widget-by-myself) on your site. The library of a particular version is connected from the official Broxus repository or [downloaded by the merchant to their servers independently](). The code includes 2 repositories with the widget code (src) and the layout code (data-src):
+- Set the [widget code](##standalone-widget-host-or-how-to-host-widget-by-myself) on your site. The library of a particular version is connected from the official Broxus repository or [downloaded by the merchant to their servers independently](#standalone-widget-host-or-how-to-host-widget-by-myself). The code includes 2 repositories with the widget code (src) and the layout code (data-src):
     \<script src="https://github.com/broxus/..."  data-src="https://github.com/broxus/..." \/\>
 - Write the necessary [configuration](#configuration) and [payment callbacks](#calling-a-payment)
 - Add a button that calls the widget to the site.

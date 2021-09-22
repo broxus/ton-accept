@@ -112,27 +112,33 @@ The widget stores a sorted array with the accepted currencies in the config.curr
 
 Through direct assignment
 
-    tonaccept.config.currencies = ['TON', 'USDC', '0:...'];
+```javascript
+tonaccept.config.currencies = ['TON', 'USDC', '0:...'];
+```
 
 or by calling the *setCurrencies* method
 
-    tonaccept.config.setCurrencies(['TON', 'USDC', '0:...']);
-
+```javascript
+tonaccept.config.setCurrencies(['TON', 'USDC', '0:...']);
+```
 or by specifying a REST method that will return a sorted list in the form of a simple sorted JSON array
 
-    tonaccept.config.currenciesRemote = 'https://localhost/currencies';
-
+```javascript
+tonaccept.config.currenciesRemote = 'https://localhost/currencies';
+```
 
 
 ## Store metadata
 
 The merchant can set the name and icon of his store:
 
-    tonaccept.config.storeIcon = 'https://localhost/icon';
+```javascript
+tonaccept.config.storeIcon = 'https://localhost/icon';
 
-    tonaccept.config.storeAddress = 'https://localhost/';
+tonaccept.config.storeAddress = 'https://localhost/';
 
-    tonaccept.config.storeName = 'Megastore';
+tonaccept.config.storeName = 'Megastore';
+```
 
 This data will be displayed on the widget.
 
@@ -141,8 +147,9 @@ This data will be displayed on the widget.
 
 The merchant can specify one or more addresses for accepting payments:
 
-    tonaccept.addresses.push('0:...');
-
+```javascript
+tonaccept.addresses.push('0:...');
+```
 If you specify several addresses, the specific one at the time of payment will be selected randomly.
 
 
@@ -154,7 +161,9 @@ If you specify several addresses, the specific one at the time of payment will b
 
 The merchant can call the payment window using the following method:
 
-    tonaccept.requestPayment(orderId, description, amount, [currency], [validUntilUtc], [onSuccess], [onFailure]);
+```javascript
+tonaccept.requestPayment(orderId, description, amount, [currency], [validUntilUtc], [onSuccess], [onFailure]);
+```
 
 By default, all payments are denominated in USDT, unless an alternative currency is specified. If an alternative currency is specified, then if it is available on TON Swap in a pair to WTON, then an attempt will be made to search for rates to the other accepted currencies. If it is not available, the widget will display only it.
 
@@ -167,12 +176,16 @@ or the payment is unsuccessful, onFailure is called .
 
 Alternatively, if the product is denominated in several currencies, you can use the following method:
 
-    let price = new Map();
-    price.set('TON', 100);
-    price.set('USDC', 40);
-    price.set('0:...', 60);
 
-    tonaccept.requestMultiCurPayment(orderId, description, price, baseCurrency, [validUntilUtc], [onSuccess], [onFailure]);
+```javascript
+let price = new Map();
+price.set('TON', 100);
+price.set('USDC', 40);
+price.set('0:...', 60);
+
+tonaccept.requestMultiCurPayment(
+    orderId, description, price, baseCurrency, [validUntilUtc], [onSuccess], [onFailure]);
+```
 
 **In the case of specifically specified multi-currency prices, auto-conversion via TON Swap is not carried out!**
 

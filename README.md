@@ -192,4 +192,4 @@ You can host the payment page and a widget code by yourself on your domain (so y
 
 1. Host the widget code from [the repository](#) anywhere you want.
 2. Host the layout code from [the repository](#) too
-3. [Setup](#setup-example) a widget in this way ``` <script src="<hosted script url (1)> data-src="<hosted web-app url (2)>"...> ```
+3. [Setup](#setup-example) a widget in this way ``` <script src="%hosted script url (1)%" data-src="%hosted web-app url (2)%"...> ```

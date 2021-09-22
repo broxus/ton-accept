@@ -15,9 +15,9 @@ It can be installed on any site by including widget code on your web pages. So w
     - [Available currencies](#available-currencies)
     - [Store metadata](#store-metadata)
     - [Payment address](#payment-address)
-- [Payment Action](#payment-action)
+- [Payment Action](#сalling-a-payment)
     - [Conversion via TON Swap](#conversion-via-ton-swap)
-    - [Multi-currency payment](#multi-currency-prices)
+    - [Multi-currency payment](#multi-currency-payment)
 - [Self-Hosted widget](#self-hosted-widget)
 
 
@@ -105,6 +105,7 @@ You can setup list of currencies you needs.
 
 
 # Configuration
+
 ## Available currencies
 The widget stores an array with the available currencies in the config.currencies parameter. In this case, you can specify either as symbolic names of currencies (from [the official list of currencies](https://github.com/broxus/ton-assets/blob/master/manifest.json)), or by specifying the address of the root contract of the token.
 
@@ -154,7 +155,6 @@ If you specify several addresses, the specific one will be selected randomly for
 
 
 # Calling a payment
-
 
 ## Conversion via [TON Swap](https://tonswap.io/)
 

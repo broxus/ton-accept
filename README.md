@@ -1,8 +1,7 @@
-# Ton accept
+# Ton Accept
 
-This is a payment widget that allows you to enable payment via [TON Crystal Extension](https://l1.broxus.com/freeton/wallet).
-It is added to any site through the connection of the library and the simplest in-page configuration.
-The site can trigger a widget pop-up window when it is necessary to accept a payment from a client.
+Ton Accept is a payment widget that allows you to processing TON payments by using [TON Crystal Extension](https://l1.broxus.com/freeton/wallet).
+It can be installed on any site by including widget code on your web pages. So when installed, web page can trigger a pop-up payment window.
 
 
 # Contents
@@ -10,25 +9,25 @@ The site can trigger a widget pop-up window when it is necessary to accept a pay
 - [Ton accept](#ton-accept)
 - [Contents](#contents)
 - [Getting started](#getting-started)
-- [Setup example](#setup-example)
+- [Entire setup example](#setup-example)
 - [Supported currencies](#supported-currencies)
 - [Configuration](#сonfiguration)
-    - [The accepted currencies are indicated in three ways:](#the-accepted-currencies-are-indicated-in-three-ways)
+    - [Available currencies](#available-currencies)
     - [Store metadata](#store-metadata)
-    - [Addresses for payment](#addresses-for-payment)
-- [Calling a payment](#calling-a-payment)
+    - [Payment address](#payment-address)
+- [Payment Action](#payment-action)
     - [Conversion via TON Swap](#conversion-via-ton-swap)
-    - [Multi-currency prices](#multi-currency-prices)
-- [Standalone widget host or How to host widget by myself](#standalone-widget-host-or-how-to-host-widget-by-myself)
+    - [Multi-currency payment](#multi-currency-prices)
+- [Self-Hosted widget](#self-hosted-widget)
 
 
 # Getting started
 
-<!-- - Install [the widget](https://chrome.google.com/webstore/detail/ton-crystal-wallet/cgeeodpfagjceefieflmdfphplkenlfk) -->
-- Set the [widget code](##standalone-widget-host-or-how-to-host-widget-by-myself) on your site. The library of a particular version is connected from the official Broxus repository or [downloaded by the merchant to their servers independently](#standalone-widget-host-or-how-to-host-widget-by-myself). The code includes 2 repositories with the widget code (src) and the layout code (data-src):
+<!-- - Install TON Crystal [browser extension](https://chrome.google.com/webstore/detail/ton-crystal-wallet/cgeeodpfagjceefieflmdfphplkenlfk) -->
+- Set the widget code on your site. Use offitial repository, or you can host widget components [by yourself](#self-hosted-widget). Source code includes 2 components: with the widget code (src) and the layout code (data-src):
     \<script src="https://github.com/broxus/..."  data-src="https://github.com/broxus/..." \/\>
-- Write the necessary [configuration](#configuration) and [payment callbacks](#calling-a-payment)
-- Add a button that calls the widget to the site.
+- [Сonfigure](#configuration) widget and setup a [payment callbacks](#calling-a-payment)
+- Use a trigger you want for calling widget payment function.
 - That is all. You can accept payments.
 
 # Setup example
@@ -39,12 +38,12 @@ The site can trigger a widget pop-up window when it is necessary to accept a pay
     <script src="https://..." data-src="https://..."></script>
     <script>
         function payment() {
-            // Set currencies
+            // Set currencies by name or root contract address (TIP3)
                 window.tonaccept.config.currencies = ['TON', '0:...'];
                 // or
-                window.tonaccept.config.currenciesRemote = 'https://...';
+                // window.tonaccept.config.currenciesRemote = 'https://...';
 
-            // Add address
+            // Add a payment address
             // one address will be randomly selected (each time)
                 window.tonaccept.addresses.push('0:...');
                 window.tonaccept.addresses.push('0:...');
@@ -59,12 +58,14 @@ The site can trigger a widget pop-up window when it is necessary to accept a pay
                     const amount = 0.01;
                     const currency = "USDC";
                     const validUntilUtc = Date.now() + 1000*60*10;
+                    // Payment callbacks will be called after payment
                     const onSuccess = () => console.log('onSuccess');
                     const onFailure = () => console.log('onFailure');
                     window.tonaccept.requestPayment(
                         orderId, description, amount, currency, validUntilUtc, onSuccess, onFailure);
 
-                // or the second option
+                // or may be you want to use multicurrency
+                    /*
                     const orderId = 1;
                     const description = 'description';
                     const price = new Map();
@@ -77,9 +78,10 @@ The site can trigger a widget pop-up window when it is necessary to accept a pay
                     const onFailure = () => console.log('onFailure');
                     window.tonaccept.requestMultiCurPayment(
                         orderId, description, price, baseCurrency, validUntilUtc, onSuccess, onFailure);
+                    */
         }
 
-            // Optional
+            // Optional store settings
                 window.tonaccept.config.storeIcon = 'https://...';
                 window.tonaccept.config.storeAddress = 'https://...';
                 window.tonaccept.config.storeName = 'My awesome store';
@@ -95,21 +97,18 @@ The site can trigger a widget pop-up window when it is necessary to accept a pay
 
 # Supported currencies
 
-In the first iteration, coins supported by the TON Crystal wallet are added:
+Widget can operate with currencies supported by TON Crystal browser extension 
 - *TON Crystal*
 - *TIP-3/Broxus*
 
-The merchant specifies the specific list of accepted currencies independently in the configuration.
+You can setup list of currencies you needs.
 
 
 # Configuration
+## Available currencies
+The widget stores an array with the available currencies in the config.currencies parameter. In this case, you can specify either as symbolic names of currencies (from [the official list of currencies](https://github.com/broxus/ton-assets/blob/master/manifest.json)), or by specifying the address of the root contract of the token.
 
-The widget stores a sorted array with the accepted currencies in the config.currencies parameter . In this case, you can specify either as symbolic names of currencies (from [the official list of currencies](https://github.com/broxus/ton-assets/blob/master/manifest.json)), or by specifying the address of the root contract of the token.
-
-
-
-## The accepted currencies are indicated in three ways:
-
+You can setup available currencies in three ways:
 Through direct assignment
 
 ```javascript
@@ -130,7 +129,7 @@ tonaccept.config.currenciesRemote = 'https://localhost/currencies';
 
 ## Store metadata
 
-The merchant can set the name and icon of his store:
+The merchant can set icon, url and name for store:
 
 ```javascript
 tonaccept.config.storeIcon = 'https://localhost/icon';
@@ -140,17 +139,17 @@ tonaccept.config.storeAddress = 'https://localhost/';
 tonaccept.config.storeName = 'Megastore';
 ```
 
-This data will be displayed on the widget.
+This data will be displayed on the widget pop-up.
 
 
-## Addresses for payment
+## Payment address
 
 The merchant can specify one or more addresses for accepting payments:
 
 ```javascript
 tonaccept.addresses.push('0:...');
 ```
-If you specify several addresses, the specific one at the time of payment will be selected randomly.
+If you specify several addresses, the specific one will be selected randomly for each payment.
 
 
 
@@ -162,19 +161,17 @@ If you specify several addresses, the specific one at the time of payment will b
 The merchant can call the payment window using the following method:
 
 ```javascript
-tonaccept.requestPayment(orderId, description, amount, [currency], [validUntilUtc], [onSuccess], [onFailure]);
+tonaccept.requestPayment(
+    orderId, description, amount, [currency], [validUntilUtc], [onSuccess], [onFailure]);
 ```
 
-By default, all payments are denominated in USDT, unless an alternative currency is specified. If an alternative currency is specified, then if it is available on TON Swap in a pair to WTON, then an attempt will be made to search for rates to the other accepted currencies. If it is not available, the widget will display only it.
+By default, all payments are denominated in USDT, unless an alternative currency is specified. If an alternative currency is specified and available on TON Swap in a pair to WTON, widget will search for rates to the other accepted currencies. Otherwise, when currency isn't available on TON Swap, the widget will display it without any rates.
 
-Upon successful completion of the payment, the callback specified in onSuccess is called, and the hash of the transaction is passed to it. If the widget window is closed
-or the payment is unsuccessful, onFailure is called .
+When payment completed successfully, widget calls specified onSuccess callback with transaction hash in the only one parameter, otherwise widget calls onFailure callback
 
+## Multi-currency payment
 
-
-## Multi-currency prices
-
-Alternatively, if the product is denominated in several currencies, you can use the following method:
+If the product is denominated in several currencies, you can use the following method:
 
 
 ```javascript
@@ -187,13 +184,12 @@ tonaccept.requestMultiCurPayment(
     orderId, description, price, baseCurrency, [validUntilUtc], [onSuccess], [onFailure]);
 ```
 
-**In the case of specifically specified multi-currency prices, auto-conversion via TON Swap is not carried out!**
+**TON Swap conversion won't work for multi-currency payments!**
 
 
-# Standalone widget host or How to host widget by myself
-You can raise the payment page on your domain, and not use broxus
+# Self-hosted widget
+You can host the payment page and a widget code by yourself on your domain (so you won't use it from repo)
 
-1. Host the widget code from [the repository](#) on your domain
-2. Host the layout code from [the repository](#) on your domain (separately)
-3. [Add](#setup-example) to the site ``` <script src="<hosted script url> data-src="<hosted web-app url>"...> ```
-
+1. Host the widget code from [the repository](#) anywhere you want.
+2. Host the layout code from [the repository](#) too
+3. [Setup](#setup-example) a widget in this way ``` <script src="<hosted script url (1)> data-src="<hosted web-app url (2)>"...> ```

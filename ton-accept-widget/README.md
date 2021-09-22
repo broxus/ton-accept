@@ -19,12 +19,13 @@ The site can trigger a widget pop-up window when it is necessary to accept a pay
 - [Calling a payment](#calling-a-payment)
     - [Conversion via TON Swap](#conversion-via-ton-swap)
     - [Multi-currency prices](#multi-currency-prices)
+- [Standalone widget host or How to host widget by myself](#standalone-widget-host-or-how-to-host-widget-by-myself)
 
 
 # Getting started
 
 <!-- - Install [the widget](https://chrome.google.com/webstore/detail/ton-crystal-wallet/cgeeodpfagjceefieflmdfphplkenlfk) -->
-- Set the [widget code](#) on your site. The library of a particular version is connected from the official Broxus repository or downloaded by the merchant to their servers independently. The code includes 2 repositories with the widget code (src) and the layout code (data-src):
+- Set the [widget code](##standalone-widget-host-or-how-to-host-widget-by-myself) on your site. The library of a particular version is connected from the official Broxus repository or [downloaded by the merchant to their servers independently](). The code includes 2 repositories with the widget code (src) and the layout code (data-src):
     \<script src="https://github.com/broxus/..."  data-src="https://github.com/broxus/..." \/\>
 - Write the necessary [configuration](#configuration) and [payment callbacks](#calling-a-payment)
 - Add a button that calls the widget to the site.
@@ -174,4 +175,12 @@ Alternatively, if the product is denominated in several currencies, you can use 
     tonaccept.requestMultiCurPayment(orderId, description, price, baseCurrency, [validUntilUtc], [onSuccess], [onFailure]);
 
 **In the case of specifically specified multi-currency prices, auto-conversion via TON Swap is not carried out!**
+
+
+# Standalone widget host or How to host widget by myself
+You can raise the payment page on your domain, and not use broxus
+
+1. Host the widget code from [the repository](#) on your domain
+2. Host the layout code from [the repository](#) on your domain (separately)
+3. [Add](#setup-example) to the site ``` <script src="<hosted script url> data-src="<hosted web-app url>"...> ```
 
